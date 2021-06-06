@@ -55,7 +55,7 @@ export default function OneRecipe({ data }) {
       <h1>{recipe.name}</h1>
       <div className="button-row">
         <span className="likes">{likes ? likes : "0"} likes</span>
-        <button className="like-button" onClick={addLike}>❤️</button>
+        <button className="like-button" onClick={addLike}>👍</button>
         <button className="like-button" onClick={addDislike}>👎</button>
         <span />
       </div>
