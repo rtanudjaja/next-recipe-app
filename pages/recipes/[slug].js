@@ -24,8 +24,12 @@ const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
   likes
 }`;
 
-export default function OneRecipe({ data }) {
-  const { recipe } = data;
+export default function OneRecipe({ data, preview }) {
+  const { data: recipe } = usePreviewSubscription(recipeQuery, {
+    params: { slug: data.recipe?.slug.current },
+    initialData: data,
+    enabled: preview,
+  })
   const [likes, setLikes] = useState(recipe?.likes);
 
   const addLike = async () => {
@@ -54,7 +58,7 @@ export default function OneRecipe({ data }) {
     <article className="recipe">
       <h1>{recipe.name}</h1>
       <div className="button-row">
-        <span className="likes">{likes ? likes : "0"} likes</span>
+        <span className="likes">{likes ? recipe?.likes : "0"} likes</span>
         <button className="like-button" onClick={addLike}>👍</button>
         <button className="like-button" onClick={addDislike}>👎</button>
         <span />
@@ -98,5 +102,5 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { slug } = params;
   const recipe = await sanityClient.fetch(recipeQuery, { slug })
-  return { props: { data: { recipe } } };
+  return { props: { data: { recipe }, preview: true } };
 }
