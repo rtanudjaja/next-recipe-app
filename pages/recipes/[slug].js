@@ -65,7 +65,7 @@ export default function OneRecipe({ data, preview }) {
     <article className="recipe">
       <h1>{recipe.name}</h1>
       <div className="button-row">
-        <span className="likes">{likes ? recipe?.likes : "0"} likes</span>
+        <span className="likes">{recipe?.likes ? recipe?.likes : "0"} likes</span>
         <button className="like-button" onClick={addLike}>👍</button>
         <button className="like-button" onClick={addDislike}>👎</button>
         <span />
