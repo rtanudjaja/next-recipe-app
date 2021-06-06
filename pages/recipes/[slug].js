@@ -1,3 +1,4 @@
+import { useState } from "react"
 import {
   sanityClient,
   urlFor,
@@ -25,9 +26,39 @@ const recipeQuery = `*[_type == "recipe" && slug.current == $slug][0]{
 
 export default function OneRecipe({ data }) {
   const { recipe } = data;
+  const [likes, setLikes] = useState(recipe?.likes);
+
+  const addLike = async () => {
+    const res = await fetch("/api/handle-like", {
+      method: "POST",
+      body: JSON.stringify({ _id: recipe._id })
+    }).catch((error) => console.log(error))
+
+    const data = await res.json();
+
+    setLikes(data.likes)
+  }
+
+  const addDislike = async () => {
+    const res = await fetch("/api/handle-dislike", {
+      method: "POST",
+      body: JSON.stringify({ _id: recipe._id })
+    }).catch((error) => console.log(error))
+
+    const data = await res.json();
+
+    setLikes(data.likes)
+  }
+
   return (
     <article className="recipe">
       <h1>{recipe.name}</h1>
+      <div className="button-row">
+        <span className="likes">{likes ? likes : "0"} likes</span>
+        <button className="like-button" onClick={addLike}>❤️</button>
+        <button className="like-button" onClick={addDislike}>👎</button>
+        <span />
+      </div>
       <main className="content">
         <img src={urlFor(recipe.mainImage).url()} alt={recipe.name} />
         <div className="breakdown">

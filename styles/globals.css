@@ -96,3 +96,36 @@ img {
 .instructions {
   padding: 15px;
 }
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 15fr;
+  gap: 10px;
+}
+
+.likes {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  background: none;
+  border-radius: 5px;
+  border: 1px solid #444;
+  padding: 6px 12px;
+  margin-bottom: 40px;
+}
+
+.like-button {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  background: none;
+  border-radius: 5px;
+  border: 1px solid #444;
+  padding: 6px 12px;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
